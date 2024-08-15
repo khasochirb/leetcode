@@ -4,45 +4,23 @@ class Solution(object):
         :type board: List[List[str]]
         :rtype: bool
         \\\
-        def minifunc(brd):
         
-            for s in brd:
+        cols = defaultdict(set)
+        rows = defaultdict(set)
+        squares = defaultdict(set)  # key = (r /3, c /3)
 
-                for j in range(len(s)):
-                    if s[j] == \.\:
-                        s[j]=10*j
-
-                if len(s)!=len(list(set(s))):
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == \.\:
+                    continue
+                if (
+                    board[r][c] in rows[r]
+                    or board[r][c] in cols[c]
+                    or board[r][c] in squares[(r // 3, c // 3)]
+                ):
                     return False
-                
-            return True
-        
-        rotate = []
-        for i in range(9):
-            lst1 = []
-            for j in range(9):
-                lst1.append(board[j][i])
-            rotate.append(lst1)
-            
-        smalls = []
-        k = 0
+                cols[c].add(board[r][c])
+                rows[r].add(board[r][c])
+                squares[(r // 3, c // 3)].add(board[r][c])
 
-        while k<=6:
-            x = 0
-            while x<=6:
-                lst=[]
-                for i in range(k, k+3):
-                    for j in range(x, x+3):
-                        lst.append(board[i][j])
-
-
-                smalls.append(lst)
-                x=x+3 
-            k=k+3
-                
-            
-            
-        if minifunc(board)==True and minifunc(rotate)==True and minifunc(smalls)==True:
-            return True
-        else:
-            return False
+        return True
