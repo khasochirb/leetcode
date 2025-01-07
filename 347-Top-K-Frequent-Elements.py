@@ -5,12 +5,25 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         \\\
-        ans = defaultdict(int)
+        count = { }
+        nums_lst = []
+        result = []
+
+
+
+        for i in range(len(nums)):
+            count[nums[i]] = 1 + count.get(nums[i], 0)
+
+
+        for num, c in count.items():
+            nums_lst.append([c,num])
+            
+        nums_lst.sort()
+
+        for i in range(len(nums_lst)-1, len(nums_lst)-k-1, -1):
+            result.append(nums_lst[i][1])
+
+
+        return result
 
         
-        for i in range(len(nums)):
-            ans[nums[i]] += 1
-        top_k = sorted(ans.items(), key = lambda x:x[1], reverse = True)[:k]
-        top_k_keys = [key for key, value in top_k]
-
-        return top_k_keys
