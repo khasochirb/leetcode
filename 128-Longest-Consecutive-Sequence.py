@@ -4,15 +4,19 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         \\\
-        longest, s = 0, set(nums)
-        for num in nums:
-            cur_longest, j = 1, 1
-            while num - j in s: 
-                s.remove(num - j)
-                cur_longest, j = cur_longest + 1, j + 1
-            j = 1
-            while num + j in s: 
-                s.remove(num + j)
-                cur_longest, j = cur_longest + 1, j + 1
-            longest = max(longest, cur_longest)
-        return longest
+        length = 0
+        set_lst = set(nums)
+        for num in set_lst:
+            '''
+            num
+            '''
+            if (num - 1) not in set_lst:
+                longest = 1
+
+                while (num + longest) in set_lst:
+                    longest += 1
+            
+                length = max(length, longest)
+        return length
+
+
