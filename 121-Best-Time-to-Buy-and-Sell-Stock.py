@@ -4,14 +4,20 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         \\\
-        l, r = 0, 1
-        maxP = 0
+        result = 0
+        R = 1
+        L = 0
 
-        while r < len(prices):
-            if prices[l] < prices[r]:
-                profit = prices[r] - prices[l]
-                maxP = max(maxP, profit)
+        while R<len(prices):
+            
+            if prices[R] > prices[L]:
+                
+                diff = prices[R] - prices[L]
+                result = max(result, diff)
+                R +=1
             else:
-                l = r
-            r += 1
-        return maxP
+                L = R
+                R = R+1
+
+
+        return result
